@@ -1,1 +1,1 @@
-const canvasContainer = document.getElementById("#canvas");
+const canvasContainer = document.getElementById("canvas");
