@@ -1,0 +1,11 @@
+html
+{
+  background-color: rgb(44, 44, 44);
+}
+
+canvas
+{
+  background: rgb(103, 103, 103);
+  outline: black 3px solid;    
+  display: flex;
+}
