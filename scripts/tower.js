@@ -1,1 +1,1 @@
-class tower {}
+class Tower {}
