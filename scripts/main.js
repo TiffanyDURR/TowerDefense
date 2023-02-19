@@ -103,7 +103,8 @@ function drawObstacles()
 
 function drawGrid()
 {
-    context.strokeStyle = "rgba(0,0,0," + opacity +")";
+    //context.strokeStyle = "rgba(0,0,0," + opacity +")";
+    context.strokeStyle = "rgba(0,0,0,0.3)";
     context.lineCap = 'round';
     context.lineWidth = 3;
 
