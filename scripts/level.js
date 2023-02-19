@@ -18,7 +18,7 @@ class Level
 
     update()
     {
-        
+
     }
 
     draw(context)
@@ -47,7 +47,7 @@ class Level
             {
                 if (mapData.foreground[x][y] != 0)
                 {
-                    context.drawImage(this.obstacles, this.tileSize * (mapData.foreground[x][y] -1), 0, this.tileSize, this.tileSize, y * this.tileSize, x * this.tileSize, this.tileSize, this.tileSize);
+                    context.drawImage(this.obstacles, this.tileSize * (mapData.foreground[x][y]), 0, this.tileSize, this.tileSize, y * this.tileSize, x * this.tileSize, this.tileSize, this.tileSize);
                 }
             }
         }
