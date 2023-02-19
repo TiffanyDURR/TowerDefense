@@ -1,42 +1,48 @@
 class Level {
-  tileset = new Image();
-  obstacles = new Image();
-  enemies = [];
+  tileset = new Image()
+  obstacles = new Image()
+  enemies = []
 
   constructor(mapData) {
-    this.mapData = mapData;
-    this.tileSize = mapData.tileSize;
+    this.mapData = mapData
+    this.waveManager = new WaveManager();
+    this.tileSize = mapData.tileSize
     this.slots = Array.from(
       Array(mapData.background[0].length),
-      () => new Array(mapData.background.length)
-    );
+      () => new Array(mapData.background.length),
+    )
   }
 
   async load() {
-    this.tileset.src = "assets/tileset.png";
-    this.obstacles.src = "assets/obstacles.png";
+    this.tileset.src = 'assets/tileset.png'
+    this.obstacles.src = 'assets/obstacles.png'
   }
 
   update() {
-    let toRemove = [];
+    this.waveManager.update(this);
+    this.updateEnemies()
+  }
+
+  updateEnemies() {
+    let toRemove = []
 
     for (let i = 0; i < this.enemies.length; i++) {
-      this.enemies[i].update(this.mapData.paths);
+      this.enemies[i].update(this.mapData.paths)
 
       if (!this.enemies[i].isAlive) {
-        toRemove.push(this.enemies[i]);
+        toRemove.push(this.enemies[i])
       }
     }
 
-    this.enemies = this.enemies.filter((x) => !toRemove.includes(x));
+    this.enemies = this.enemies.filter((x) => !toRemove.includes(x))
   }
 
   draw(context) {
-    this.drawMap(context);
-    this.drawObstacles(context);
-    this.drawGrid(context);
-    this.drawEnemies(context);
-    this.drawTowers(context);
+    this.drawMap(context)
+    this.drawObstacles(context)
+    this.drawGrid(context)
+    this.drawEnemies(context)
+    this.drawTowers(context)
   }
 
   drawMap(context) {
@@ -51,8 +57,8 @@ class Level {
           y * this.tileSize,
           x * this.tileSize,
           this.tileSize,
-          this.tileSize
-        );
+          this.tileSize,
+        )
       }
     }
   }
@@ -70,30 +76,30 @@ class Level {
             y * this.tileSize,
             x * this.tileSize,
             this.tileSize,
-            this.tileSize
-          );
+            this.tileSize,
+          )
         }
       }
     }
   }
 
   drawGrid(context) {
-    context.strokeStyle = "rgba(134,146,46,0.3)";
-    context.lineCap = "round";
-    context.lineWidth = 2;
+    context.strokeStyle = 'rgba(134,146,46,0.3)'
+    context.lineCap = 'round'
+    context.lineWidth = 2
 
     for (let y = 0; y < mapData.foreground.length; y++) {
-      let start = new Vector(0, y * this.tileSize);
-      let end = new Vector(canvas.width, y * this.tileSize);
+      let start = new Vector(0, y * this.tileSize)
+      let end = new Vector(canvas.width, y * this.tileSize)
 
-      drawLine(start, end);
+      drawLine(start, end)
     }
 
     for (let x = 0; x < mapData.foreground[0].length; x++) {
-      let start = new Vector(x * this.tileSize, 0);
-      let end = new Vector(x * this.tileSize, canvas.height);
+      let start = new Vector(x * this.tileSize, 0)
+      let end = new Vector(x * this.tileSize, canvas.height)
 
-      drawLine(start, end);
+      drawLine(start, end)
     }
   }
 
@@ -101,7 +107,7 @@ class Level {
     for (let y = 0; y < this.slots[0].length; y++) {
       for (let x = 0; x < this.slots.length; x++) {
         if (this.slots[x][y] != null) {
-          this.slots[x][y].draw(context, x * this.tileSize, y * this.tileSize);
+          this.slots[x][y].draw(context, x * this.tileSize, y * this.tileSize)
         }
       }
     }
@@ -109,7 +115,7 @@ class Level {
 
   drawEnemies(context) {
     for (let i = 0; i < this.enemies.length; i++) {
-      this.enemies[i].draw(context);
+      this.enemies[i].draw(context)
     }
   }
 
@@ -117,10 +123,10 @@ class Level {
     if (this.mapData.background[position.y][position.x] == 0) {
       if (this.mapData.foreground[position.y][position.x] == 0) {
         if (this.slots[position.x][position.y] == null) {
-          return true;
+          return true
         }
       }
     }
-    return false;
+    return false
   }
 }

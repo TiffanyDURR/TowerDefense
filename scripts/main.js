@@ -63,8 +63,8 @@ function mouseMove(e) {
 function mouseClick(e) {
   let position = mouseToGrid(mousePosition, level.tileSize);
 
-  // spawnTower(position);
-  spawnEnemy(position);
+   spawnTower(position);
+  //spawnEnemy(position);
 }
 
 function spawnTower(position)
