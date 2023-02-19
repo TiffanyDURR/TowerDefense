@@ -6,7 +6,7 @@ class Enemy
     {
         this.maxHealth = 10;
         this.currentHealth = this.maxHealth;
-        this.speed = 0.005;
+        this.speed = 0.01;
         this.x = 0;
         this.y = 0;
         this.pathIndex = 0;
@@ -48,24 +48,24 @@ class Enemy
         this.x += directionX;
         this.y += directionY;
 
-        let destinationX = destinationPath[0]; // 0 * 64
-        let destinationY = destinationPath[1]; // 3 * 
+        let destinationX = destinationPath[0]; 
+        let destinationY = destinationPath[1]; 
 
-        let delta = 0.01;
+        let delta = 0.015;
 
         if (Math.abs(destinationY - this.x) <= delta)
         {
             if (Math.abs(destinationX - this.y) <= delta)
             {
                 this.pathIndex++;
+                // Corriger la position ici afin d'éviter un cumul de delta
             }
         }
-
     }
 
     draw(context)
     {
-        context.drawImage(this.enemyImage, (this.x * 64) - 32, (this.y * 64) - 32);
+        context.drawImage(this.enemyImage, (this.x * 64) - 64, (this.y * 64) - 0);
     }
 
     get isAlive()

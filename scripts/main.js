@@ -47,7 +47,7 @@ function draw() {
 function drawCursor() {
   let gridPosition = mouseToGridPixel(mousePosition, level.tileSize);
 
-  logDebug(gridPosition.x + "-" + gridPosition.y);
+  logDebug(mouseToGrid(mousePosition, level.tileSize));
 
   context.drawImage(cursor, gridPosition.x, gridPosition.y);
 }
