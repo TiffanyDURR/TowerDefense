@@ -14,7 +14,7 @@ class WaveManager
         {
             this.spawn(level);
 
-            this.nextSpawn = level.mapData.timeBetweenSpawn; // 1
+            this.nextSpawn = level.mapData.timeBetweenSpawn;
         }
     }
 

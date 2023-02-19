@@ -1,6 +1,6 @@
 class Enemy
 {
-    enemyImage = new Image();
+    sprite = new Sprite();
     
     constructor(path)
     {
@@ -14,13 +14,15 @@ class Enemy
 
     load()
     {
-        this.enemyImage.src = "assets/enemy.png";
+        this.sprite.load("assets/anim.png");
     }
 
     update(paths)
     {
         if (this.isAlive)
         {
+            this.sprite.update();
+
             let originPath = paths[this.pathIndex];
             let destinationPath = paths[this.pathIndex + 1];
             
@@ -73,7 +75,7 @@ class Enemy
 
     draw(context)
     {
-        context.drawImage(this.enemyImage, (this.x * 64), (this.y * 64));
+        this.sprite.draw(context, (this.x * 64), (this.y * 64));
     }
 
     get isAlive()
