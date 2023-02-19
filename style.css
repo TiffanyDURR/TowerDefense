@@ -1,11 +1,9 @@
-html
-{
+html {
   background-color: rgb(44, 44, 44);
 }
 
-canvas
-{
+canvas {
   background: rgb(103, 103, 103);
-  outline: black 3px solid;    
+  outline: black 3px solid;
   display: flex;
 }
