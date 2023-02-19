@@ -1,6 +1,7 @@
 class Level {
   tileset = new Image();
   obstacles = new Image();
+  enemies = [];
 
   constructor(mapData) {
     this.mapData = mapData;
@@ -17,12 +18,18 @@ class Level {
     this.obstacles.src = "assets/obstacles.png";
   }
 
-  update() {}
+  update() {
+    for (let i = 0; i < this.enemies.length; i++)
+    {
+        this.enemies[i].update();
+    }
+  }
 
   draw(context) {
     this.drawMap(context);
     this.drawObstacles(context);
     this.drawGrid(context);
+    this.drawEnemies(context);
     this.drawTowers(context);
   }
 
@@ -91,6 +98,13 @@ class Level {
           this.slots[x][y].draw(context, x * this.tileSize, y * this.tileSize);
         }
       }
+    }
+  }
+
+  drawEnemies(context) {
+    for (let i = 0 ;i < this.enemies.length; i++)
+    {
+        this.enemies[i].draw(context);
     }
   }
 
