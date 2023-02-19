@@ -1,4 +1,5 @@
 const canvas = document.getElementById("game");
+const debug = document.getElementById("debug");
 const context = canvas.getContext("2d");
 const tileset = new Image();
 const cursor = new Image();
@@ -43,7 +44,12 @@ async function initialize()
 
 function drawCursor()
 {
-    context.drawImage(cursor, Math.floor(mousePosition.x / tileSize) * tileSize, Math.floor(mousePosition.y / tileSize) * tileSize);
+    let x = Math.floor(mousePosition.x / tileSize);
+    let y = Math.floor(mousePosition.y / tileSize);
+
+    logDebug(x + "-" + y);
+
+    context.drawImage(cursor, x * tileSize, y * tileSize);
 }
 
 function drawMap()
@@ -55,6 +61,11 @@ function drawMap()
             context.drawImage(tileset, tileSize * mapData.data[x][y], 0, tileSize, tileSize, y * tileSize, x * tileSize, tileSize, tileSize);
         }
     }
+}
+
+function logDebug(message)
+{
+    debug.innerHTML = message;
 }
 
 function mouseMove(e)

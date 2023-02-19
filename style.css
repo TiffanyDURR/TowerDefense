@@ -7,3 +7,8 @@ canvas {
   outline: black 3px solid;
   display: flex;
 }
+
+#debug {
+    color:aliceblue;
+    font-size:20px;
+}
