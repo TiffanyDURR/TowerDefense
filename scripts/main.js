@@ -54,13 +54,18 @@ function drawCursor()
 
 function drawMap()
 {
-    for (let y = 0; y < mapData.data[0].length; y++)
+    for (let y = 0; y < mapData.background[0].length; y++)
     {
-        for (let x = 0; x < mapData.data.length; x++)
+        for (let x = 0; x < mapData.background.length; x++)
         {
             context.drawImage(tileset, tileSize * mapData.data[x][y], 0, tileSize, tileSize, y * tileSize, x * tileSize, tileSize, tileSize);
         }
     }
+}
+
+function drawGrid()
+{
+    
 }
 
 function logDebug(message)
