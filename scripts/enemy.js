@@ -19,49 +19,57 @@ class Enemy
 
     update(paths)
     {
-        let originPath = paths[this.pathIndex];
-        let destinationPath = paths[this.pathIndex + 1];
-        
-        let directionX = 0;
-        let directionY = 0;
-
-        if (destinationPath[0] > originPath[0])
+        if (this.isAlive)
         {
-            directionX = this.speed;
-        }
+            let originPath = paths[this.pathIndex];
+            let destinationPath = paths[this.pathIndex + 1];
+            
+            let directionX = 0;
+            let directionY = 0;
 
-        else if (destinationPath[0] < originPath[0])
-        {
-            directionX = -this.speed;
-        }
-
-        if (destinationPath[1] > originPath[1])
-        {
-            directionY = this.speed;
-        }
-
-        else if (destinationPath[1] < originPath[1])
-        {
-            directionY = -this.speed;
-        }
-
-        this.x += directionX;
-        this.y += directionY;
-
-        let destinationX = destinationPath[0]; 
-        let destinationY = destinationPath[1]; 
-
-        let delta = 0.015;
-
-        if (Math.abs(destinationX - this.x) <= delta)
-        {
-            if (Math.abs(destinationY - this.y) <= delta)
+            if (destinationPath[0] > originPath[0])
             {
-                this.pathIndex++;
-                // Corriger la position ici afin d'éviter un cumul de delta
+                directionX = this.speed;
             }
-        }
+
+            else if (destinationPath[0] < originPath[0])
+            {
+                directionX = -this.speed;
+            }
+
+            if (destinationPath[1] > originPath[1])
+            {
+                directionY = this.speed;
+            }
+
+            else if (destinationPath[1] < originPath[1])
+            {
+                directionY = -this.speed;
+            }
+
+            this.x += directionX;
+            this.y += directionY;
+
+            let destinationX = destinationPath[0]; 
+            let destinationY = destinationPath[1]; 
+
+            let delta = 0.015;
+
+            if (Math.abs(destinationX - this.x) <= delta)
+            {
+                if (Math.abs(destinationY - this.y) <= delta)
+                {
+                    // Corriger la position ici afin d'éviter un cumul de delta
+                    this.pathIndex++; 
+
+                    if (this.pathIndex == paths.length- 1)
+                    {
+                        this.currentHealth = 0;
+                    }
+                }
+            }
     }
+}
 
     draw(context)
     {
@@ -70,6 +78,6 @@ class Enemy
 
     get isAlive()
     {
-        return this.currentHealth <= 0;
+        return this.currentHealth > 0;
     }
 }
