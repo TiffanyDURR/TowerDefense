@@ -27,15 +27,15 @@ function update()
 {
     if (flagOpacity)
     {
-        opacity += 0.01;
+        opacity += 0.005;
     }
 
     else
     {
-        opacity -= 0.01;
+        opacity -= 0.005;
     }
 
-    if (opacity <= 0.1)
+    if (opacity <= 0.3)
     {
         flagOpacity = true;
     }
