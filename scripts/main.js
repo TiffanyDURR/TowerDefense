@@ -2,11 +2,13 @@ const canvas = document.getElementById("game");
 const debug = document.getElementById("debug");
 const context = canvas.getContext("2d");
 const tileset = new Image();
+const obstacles = new Image();
 const cursor = new Image();
 let mapData = null;
 let tileSize = 0;
 let mousePosition = new Vector(0, 0); 
 tileset.src = "assets/tileset.png";
+obstacles.src = "assets/obstacles.png";
 cursor.src = "assets/cursor.png";
 canvas.addEventListener('mousemove', mouseMove);
 
@@ -28,7 +30,7 @@ function draw()
     context.clearRect(0, 0, canvas.width, canvas.height); // Clean tout
     
     drawMap(); // Draw the map
-
+    drawObstacles(); // Draw the obstacles
     drawCursor(); // Draww the cursor
 }
 
@@ -36,8 +38,8 @@ async function initialize()
 {
     mapData = await getJSON("data/map.json");
     tileSize = mapData.tileSize;
-    canvas.height = mapData.data.length * tileSize;
-    canvas.width = mapData.data[0].length  * tileSize;
+    canvas.height = mapData.background.length * tileSize;
+    canvas.width = mapData.background[0].length  * tileSize;
 
     window.requestAnimationFrame(gameLoop);
 }
@@ -58,7 +60,21 @@ function drawMap()
     {
         for (let x = 0; x < mapData.background.length; x++)
         {
-            context.drawImage(tileset, tileSize * mapData.data[x][y], 0, tileSize, tileSize, y * tileSize, x * tileSize, tileSize, tileSize);
+            context.drawImage(tileset, tileSize * mapData.background[x][y], 0, tileSize, tileSize, y * tileSize, x * tileSize, tileSize, tileSize);
+        }
+    }
+}
+
+function drawObstacles()
+{
+    for (let y = 0; y < mapData.foreground[0].length; y++)
+    {
+        for (let x = 0; x < mapData.foreground.length; x++)
+        {
+            if (mapData.foreground[x][y] != 0)
+            {
+                context.drawImage(obstacles, tileSize * (mapData.foreground[x][y] -1), 0, tileSize, tileSize, y * tileSize, x * tileSize, tileSize, tileSize);
+            }
         }
     }
 }
