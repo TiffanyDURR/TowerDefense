@@ -1,7 +1,7 @@
 class Tower {
   towerImage = new Image();
 
-  async load() {
+  load() {
     this.towerImage.src = "assets/tower.png";
   }
 

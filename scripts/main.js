@@ -4,65 +4,66 @@ const context = canvas.getContext("2d");
 const cursor = new Image();
 
 let level;
-let mousePosition = new Vector(0, 0); 
+let mousePosition = new Vector(0, 0);
 
 cursor.src = "assets/cursor.png";
-canvas.addEventListener('mousemove', mouseMove);
+canvas.addEventListener("mousemove", mouseMove);
+canvas.addEventListener("click", mouseClick);
 
 initialize();
 
-async function initialize()
-{
-    mapData = await getJSON("data/map.json");
+async function initialize() {
+  mapData = await getJSON("data/map.json");
 
-    level = new Level(mapData);
-    
-    await level.load();
+  level = new Level(mapData);
 
-    canvas.height = level.mapData.background.length * level.tileSize;
-    canvas.width = level.mapData.background[0].length  * level.tileSize;
+  await level.load();
 
-    window.requestAnimationFrame(gameLoop);
+  canvas.height = level.mapData.background.length * level.tileSize;
+  canvas.width = level.mapData.background[0].length * level.tileSize;
+
+  window.requestAnimationFrame(gameLoop);
 }
 
-function gameLoop() 
-{
-    update();
-    draw();
+function gameLoop() {
+  update();
+  draw();
 
-    window.requestAnimationFrame(gameLoop);
+  window.requestAnimationFrame(gameLoop);
 }
 
-function update()
-{
-    level.update();
+function update() {
+  level.update();
 }
 
-function draw()
-{
-    context.clearRect(0, 0, canvas.width, canvas.height); // Clean tout
+function draw() {
+  context.clearRect(0, 0, canvas.width, canvas.height); // Clean tout
 
-    level.draw(context); // Draw the map
+  level.draw(context); // Draw the map
 
-    drawCursor(); // Draw the cursor
+  drawCursor(); // Draw the cursor
 }
 
-function drawCursor()
-{
-    let x = Math.floor(mousePosition.x / level.tileSize);
-    let y = Math.floor(mousePosition.y / level.tileSize);
+function drawCursor() {
+  let gridPosition = mouseToGridPixel(mousePosition, level.tileSize);
 
-    logDebug(x + "-" + y);
+  logDebug(gridPosition.x + "-" + gridPosition.y);
 
-    context.drawImage(cursor, x * level.tileSize, y * level.tileSize);
+  context.drawImage(cursor, gridPosition.x, gridPosition.y);
 }
 
-function logDebug(message)
-{
-    debug.innerHTML = message;
+function logDebug(message) {
+  debug.innerHTML = message;
 }
 
-function mouseMove(e)
-{
-    mousePosition = new Vector(e.offsetX, e.offsetY);
+function mouseMove(e) {
+  mousePosition = new Vector(e.offsetX, e.offsetY);
+}
+
+function mouseClick(e) {
+  let position = mouseToGrid(mousePosition, level.tileSize);
+  if (level.canSpawn(position)) {
+    level.slots[position.x][position.y] = new Tower();
+    level.slots[position.x][position.y].load();
+  }
 }
