@@ -6,6 +6,8 @@ const obstacles = new Image();
 const cursor = new Image();
 let mapData = null;
 let tileSize = 0;
+let opacity = 1;
+let flagOpacity = false;
 let mousePosition = new Vector(0, 0); 
 tileset.src = "assets/tileset.png";
 obstacles.src = "assets/obstacles.png";
@@ -23,6 +25,25 @@ function gameLoop()
 
 function update()
 {
+    if (flagOpacity)
+    {
+        opacity += 0.01;
+    }
+
+    else
+    {
+        opacity -= 0.01;
+    }
+
+    if (opacity <= 0.1)
+    {
+        flagOpacity = true;
+    }
+
+    else if (opacity >= 0.6)
+    {
+        flagOpacity = false;
+    }
 }
 
 function draw()
@@ -82,14 +103,14 @@ function drawObstacles()
 
 function drawGrid()
 {
-    context.strokeStyle = 'rgba(0,0,0,0.3)';
+    context.strokeStyle = "rgba(0,0,0," + opacity +")";
     context.lineCap = 'round';
     context.lineWidth = 3;
 
     for (let y = 0; y < mapData.foreground.length; y++)
     {
         let start = new Vector(0,  y * tileSize);
-        let end = new Vector(canvas.width ,y  * tileSize);
+        let end = new Vector(canvas.width, y  * tileSize);
 
         drawLine(start, end);
     }
