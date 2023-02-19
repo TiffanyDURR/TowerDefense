@@ -77,7 +77,7 @@ function spawnTower(position)
 
 function spawnEnemy(position)
 {
-    let enemy = new Enemy();
+    let enemy = new Enemy(level.mapData.paths[0]);
 
     enemy.load();
 

@@ -2,13 +2,13 @@ class Enemy
 {
     enemyImage = new Image();
     
-    constructor()
+    constructor(path)
     {
         this.maxHealth = 10;
         this.currentHealth = this.maxHealth;
         this.speed = 0.01;
-        this.x = 0;
-        this.y = 0;
+        this.x = path[0];
+        this.y = path[1];
         this.pathIndex = 0;
     }
 
