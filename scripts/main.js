@@ -11,16 +11,13 @@ async function loadMap()
     tileset.src = "assets/tileset.png";
 
     var mapData = await getJSON("data/map.json");
-
     var tileSize = mapData.tileSize;
-
-    console.log(tileset);
 
     for (let y = 0; y < mapData.data[0].length; y++)
     {
         for (let x = 0; x < mapData.data.length; x++)
         {
-            context.drawImage(tileset, tileSize * mapData.data[x][y], 0, tileSize, tileSize, x * tileSize, y * tileSize, tileSize, tileSize);
+            context.drawImage(tileset, tileSize * mapData.data[x][y], 0, tileSize, tileSize, y * tileSize, x * tileSize, tileSize, tileSize);
         }
     }
 }
