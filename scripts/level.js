@@ -18,10 +18,20 @@ class Level {
   }
 
   update() {
+
+    let toRemove = [];
+
     for (let i = 0; i < this.enemies.length; i++)
     {
         this.enemies[i].update(this.mapData.paths);
+
+        if (!this.enemies[i].isAlive)
+        {
+            toRemove.push(this.enemies[i]);
+        }
     }
+
+    this.enemies = this.enemies.filter(x => !toRemove.includes(x));
   }
 
   draw(context) {

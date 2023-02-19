@@ -6,7 +6,7 @@ class Enemy
     {
         this.maxHealth = 10;
         this.currentHealth = this.maxHealth;
-        this.speed = 0.01;
+        this.speed = 0.02;
         this.x = path[0];
         this.y = path[1];
         this.pathIndex = 0;
@@ -53,7 +53,7 @@ class Enemy
             let destinationX = destinationPath[0]; 
             let destinationY = destinationPath[1]; 
 
-            let delta = 0.015;
+            let delta = 0.025;
 
             if (Math.abs(destinationX - this.x) <= delta)
             {
@@ -62,7 +62,7 @@ class Enemy
                     // Corriger la position ici afin d'éviter un cumul de delta
                     this.pathIndex++; 
 
-                    if (this.pathIndex == paths.length- 1)
+                    if (this.pathIndex == paths.length - 1)
                     {
                         this.currentHealth = 0;
                     }
