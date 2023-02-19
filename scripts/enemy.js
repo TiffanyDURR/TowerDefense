@@ -27,22 +27,22 @@ class Enemy
 
         if (destinationPath[0] > originPath[0])
         {
-            directionY = this.speed;
+            directionX = this.speed;
         }
 
         else if (destinationPath[0] < originPath[0])
         {
-            directionY = -this.speed;
+            directionX = -this.speed;
         }
 
         if (destinationPath[1] > originPath[1])
         {
-            directionX = this.speed;
+            directionY = this.speed;
         }
 
         else if (destinationPath[1] < originPath[1])
         {
-            directionX = -this.speed;
+            directionY = -this.speed;
         }
 
         this.x += directionX;
@@ -53,9 +53,9 @@ class Enemy
 
         let delta = 0.015;
 
-        if (Math.abs(destinationY - this.x) <= delta)
+        if (Math.abs(destinationX - this.x) <= delta)
         {
-            if (Math.abs(destinationX - this.y) <= delta)
+            if (Math.abs(destinationY - this.y) <= delta)
             {
                 this.pathIndex++;
                 // Corriger la position ici afin d'éviter un cumul de delta
@@ -65,7 +65,7 @@ class Enemy
 
     draw(context)
     {
-        context.drawImage(this.enemyImage, (this.x * 64) - 64, (this.y * 64) - 0);
+        context.drawImage(this.enemyImage, (this.x * 64), (this.y * 64));
     }
 
     get isAlive()
