@@ -18,20 +18,17 @@ class Level {
   }
 
   update() {
-
     let toRemove = [];
 
-    for (let i = 0; i < this.enemies.length; i++)
-    {
-        this.enemies[i].update(this.mapData.paths);
+    for (let i = 0; i < this.enemies.length; i++) {
+      this.enemies[i].update(this.mapData.paths);
 
-        if (!this.enemies[i].isAlive)
-        {
-            toRemove.push(this.enemies[i]);
-        }
+      if (!this.enemies[i].isAlive) {
+        toRemove.push(this.enemies[i]);
+      }
     }
 
-    this.enemies = this.enemies.filter(x => !toRemove.includes(x));
+    this.enemies = this.enemies.filter((x) => !toRemove.includes(x));
   }
 
   draw(context) {
@@ -81,9 +78,9 @@ class Level {
   }
 
   drawGrid(context) {
-    context.strokeStyle = "rgba(0,0,0,0.3)";
+    context.strokeStyle = "rgba(134,146,46,0.3)";
     context.lineCap = "round";
-    context.lineWidth = 3;
+    context.lineWidth = 2;
 
     for (let y = 0; y < mapData.foreground.length; y++) {
       let start = new Vector(0, y * this.tileSize);
@@ -111,9 +108,8 @@ class Level {
   }
 
   drawEnemies(context) {
-    for (let i = 0 ;i < this.enemies.length; i++)
-    {
-        this.enemies[i].draw(context);
+    for (let i = 0; i < this.enemies.length; i++) {
+      this.enemies[i].draw(context);
     }
   }
 
