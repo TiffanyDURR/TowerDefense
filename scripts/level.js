@@ -6,8 +6,8 @@ class Level {
     this.mapData = mapData;
     this.tileSize = mapData.tileSize;
     this.slots = Array.from(
-      Array(mapData.background.length),
-      () => new Array(mapData.background[0].length)
+      Array(mapData.background[0].length),
+      () => new Array(mapData.background.length)
     );
     console.log(this.slots);
   }
@@ -85,8 +85,8 @@ class Level {
   }
 
   drawTowers(context) {
-    for (let y = 0; y < this.slots.length; y++) {
-      for (let x = 0; x < this.slots[0].length; x++) {
+    for (let y = 0; y < this.slots[0].length; y++) {
+      for (let x = 0; x < this.slots.length; x++) {
         if (this.slots[x][y] != null) {
           this.slots[x][y].draw(context, x * this.tileSize, y * this.tileSize);
         }
@@ -95,8 +95,8 @@ class Level {
   }
 
   canSpawn(position) {
-    if (this.mapData.background[position.x][position.y] == 0) {
-      if (this.mapData.foreground[position.x][position.y] == 0) {
+    if (this.mapData.background[position.y][position.x] == 0) {
+      if (this.mapData.foreground[position.y][position.x] == 0) {
         if (this.slots[position.x][position.y] == null) {
           return true;
         }
