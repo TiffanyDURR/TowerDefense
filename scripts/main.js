@@ -1,17 +1,19 @@
 const canvas = document.getElementById("game");
 const context = canvas.getContext("2d");
-
-
+const tileset = new Image();
+tileset.src = "assets/tileset.png";
+    
 loadMap();
 
 async function loadMap()
 {
-    const tileset = new Image();
 
-    tileset.src = "assets/tileset.png";
 
     var mapData = await getJSON("data/map.json");
     var tileSize = mapData.tileSize;
+
+    canvas.height = mapData.data.length * tileSize;
+    canvas.width = mapData.data[0].length  * tileSize;
 
     for (let y = 0; y < mapData.data[0].length; y++)
     {
