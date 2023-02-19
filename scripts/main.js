@@ -31,6 +31,7 @@ function draw()
     
     drawMap(); // Draw the map
     drawObstacles(); // Draw the obstacles
+    drawGrid(); // Draw the grid
     drawCursor(); // Draww the cursor
 }
 
@@ -81,7 +82,33 @@ function drawObstacles()
 
 function drawGrid()
 {
-    
+    context.strokeStyle = 'rgba(0,0,0,0.3)';
+    context.lineCap = 'round';
+    context.lineWidth = 3;
+
+    for (let y = 0; y < mapData.foreground.length; y++)
+    {
+        let start = new Vector(0,  y * tileSize);
+        let end = new Vector(canvas.width ,y  * tileSize);
+
+        drawLine(start, end);
+    }
+
+    for (let x = 0; x < mapData.foreground[0].length; x++)
+    {
+        let start = new Vector(x * tileSize, 0);
+        let end = new Vector(x * tileSize, canvas.height);
+
+        drawLine(start, end);
+    }
+}
+
+function drawLine(start, end)
+{
+    context.beginPath();
+    context.moveTo(start.x, start.y);
+    context.lineTo(end.x, end.y);
+    context.stroke();
 }
 
 function logDebug(message)
