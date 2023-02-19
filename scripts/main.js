@@ -81,10 +81,5 @@ function spawnEnemy(position)
 
     enemy.load();
 
-    enemy.x = position.x;
-    enemy.y = position.y;
-
-    console.log(enemy);
-
     level.enemies.push(enemy);
 }

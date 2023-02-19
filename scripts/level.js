@@ -10,7 +10,6 @@ class Level {
       Array(mapData.background[0].length),
       () => new Array(mapData.background.length)
     );
-    console.log(this.slots);
   }
 
   async load() {
@@ -21,7 +20,7 @@ class Level {
   update() {
     for (let i = 0; i < this.enemies.length; i++)
     {
-        this.enemies[i].update();
+        this.enemies[i].update(this.mapData.paths);
     }
   }
 
