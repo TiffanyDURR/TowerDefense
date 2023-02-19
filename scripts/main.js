@@ -16,6 +16,7 @@ async function initialize()
     mapData = await getJSON("data/map.json");
 
     level = new Level(mapData);
+    
     await level.load();
 
     canvas.height = level.mapData.background.length * level.tileSize;
@@ -28,6 +29,7 @@ function gameLoop()
 {
     update();
     draw();
+
     window.requestAnimationFrame(gameLoop);
 }
 
