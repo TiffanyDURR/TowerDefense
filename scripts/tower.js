@@ -1,7 +1,7 @@
 class Tower {
 
   constructor() {
-    towerImage = new Image();
+    this.towerImage = new Image();
   }
 
   load() {
