@@ -55,7 +55,7 @@ class Enemy
             let destinationX = destinationPath[0]; 
             let destinationY = destinationPath[1]; 
 
-            let delta = 0.025;
+            let delta = 0.1;
 
             if (Math.abs(destinationX - this.x) <= delta)
             {

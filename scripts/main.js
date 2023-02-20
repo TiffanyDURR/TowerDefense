@@ -6,10 +6,20 @@ const cursor = new Image();
 let level;
 let mousePosition = new Vector(0, 0);
 let lastUpdateTime = 0;
+let wasPaused = false;
 
 cursor.src = "assets/cursor.png";
 canvas.addEventListener("mousemove", mouseMove);
 canvas.addEventListener("click", mouseClick);
+document.addEventListener("visibilitychange", visibilityChanged);
+
+function visibilityChanged()
+{
+    if (!document.hidden)
+    {
+        wasPaused = true;
+    }
+}
 
 initialize();
 
@@ -27,6 +37,13 @@ async function initialize() {
 }
 
 function gameLoop(currentTime) {
+
+    if (wasPaused)
+    {
+        lastUpdateTime = currentTime ;
+
+        wasPaused = false;
+    }
 
   let deltaTime = (currentTime - lastUpdateTime) / 1000;
 
