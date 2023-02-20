@@ -4,7 +4,7 @@ class Enemy
     constructor(firstPath)
     {
         this.maxHealth = 10;
-        this.speed = 0.02;
+        this.speed = 2;
         this.pathIndex = 0;
         this.currentHealth = this.maxHealth;
         this.x = firstPath[0];
@@ -17,11 +17,11 @@ class Enemy
         this.sprite.load("assets/dragon.png", tileSize);
     }
 
-    update(paths)
+    update(deltaTime, paths)
     {
         if (this.isAlive)
         {
-            this.sprite.update();
+            this.sprite.update(deltaTime);
 
             let originPath = paths[this.pathIndex];
             let destinationPath = paths[this.pathIndex + 1];
@@ -49,8 +49,8 @@ class Enemy
                 directionY = -this.speed;
             }
 
-            this.x += directionX;
-            this.y += directionY;
+            this.x += directionX * deltaTime;
+            this.y += directionY * deltaTime;
 
             let destinationX = destinationPath[0]; 
             let destinationY = destinationPath[1]; 

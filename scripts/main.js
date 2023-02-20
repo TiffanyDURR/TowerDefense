@@ -5,6 +5,7 @@ const cursor = new Image();
 
 let level;
 let mousePosition = new Vector(0, 0);
+let lastUpdateTime = 0;
 
 cursor.src = "assets/cursor.png";
 canvas.addEventListener("mousemove", mouseMove);
@@ -25,15 +26,20 @@ async function initialize() {
   window.requestAnimationFrame(gameLoop);
 }
 
-function gameLoop() {
-  update();
+function gameLoop(currentTime) {
+
+  let deltaTime = (currentTime - lastUpdateTime) / 1000;
+
+  update(deltaTime);
   draw();
+
+  lastUpdateTime = currentTime;
 
   window.requestAnimationFrame(gameLoop);
 }
 
-function update() {
-  level.update();
+function update(deltaTime) {
+  level.update(deltaTime);
 }
 
 function draw() {

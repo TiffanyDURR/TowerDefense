@@ -6,9 +6,9 @@ class WaveManager
         this.currentWaveIndex = 0;
     }
 
-    update(level)
+    update(deltaTime, level)
     {
-        this.nextSpawn -= 1/60;
+        this.nextSpawn -= deltaTime;
 
         if (this.nextSpawn <= 0)
         {

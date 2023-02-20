@@ -15,9 +15,9 @@ class Sprite
         this.maxFrames =  this.image.width / tileSize;
     }
 
-    update()
+    update(deltaTime)
     {
-        this.nextAnimationTimer -= 1/60;
+        this.nextAnimationTimer -= deltaTime;
 
         if (this.nextAnimationTimer <= 0)
         {

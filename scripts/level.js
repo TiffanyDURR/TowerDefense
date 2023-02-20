@@ -18,16 +18,16 @@ class Level {
     this.obstacles.src = 'assets/obstacles.png'
   }
 
-  update() {
-    this.waveManager.update(this);
-    this.updateEnemies()
+  update(deltaTime) {
+    this.waveManager.update(deltaTime, this);
+    this.updateEnemies(deltaTime)
   }
 
-  updateEnemies() {
+  updateEnemies(deltaTime) {
     let toRemove = []
 
     for (let i = 0; i < this.enemies.length; i++) {
-      this.enemies[i].update(this.mapData.paths)
+      this.enemies[i].update(deltaTime, this.mapData.paths)
 
       if (!this.enemies[i].isAlive) {
         toRemove.push(this.enemies[i])
