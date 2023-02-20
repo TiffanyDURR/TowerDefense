@@ -15,7 +15,7 @@ document.addEventListener("visibilitychange", visibilityChanged);
 
 function visibilityChanged()
 {
-   // if (!document.hidden)
+    if (!document.hidden)
     {
         wasPaused = true;
     }
