@@ -1,5 +1,8 @@
 class Tower {
-  towerImage = new Image();
+
+  constructor() {
+    towerImage = new Image();
+  }
 
   load() {
     this.towerImage.src = "assets/tower.png";

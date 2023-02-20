@@ -22,7 +22,7 @@ class WaveManager
     {
         let enemy = new Enemy(level.mapData.paths[0]);
 
-        enemy.load();
+        enemy.load(level.tileSize);
 
         level.enemies.push(enemy);
     }

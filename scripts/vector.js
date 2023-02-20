@@ -23,6 +23,6 @@ class Vector
   
     toString() 
     {
-      return `Vec{x: ${this.x}, y: ${this.y}}`;
+      return `x: ${this.x}, y: ${this.y}`;
     }
 }

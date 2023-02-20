@@ -1,20 +1,18 @@
 class Sprite
 {
-    image = new Image();
-
-    constructor()
+    constructor(speedAnimation)
     {
+        this.image = new Image();
         this.currentFrame = 0;
         this.maxFrames = 0;
-        this.speedAnimation = 0.2;
+        this.speedAnimation = speedAnimation;
         this.nextAnimationTimer = this.speedAnimation;
     }
 
-    load(path)
+    load(path, tileSize)
     {
         this.image.src = path;
-
-        this.maxFrames =  this.image.width / 64;
+        this.maxFrames =  this.image.width / tileSize;
     }
 
     update()
@@ -23,15 +21,14 @@ class Sprite
 
         if (this.nextAnimationTimer <= 0)
         {
-            this.currentFrame += 1;
+            this.currentFrame++;
             this.currentFrame %= this.maxFrames;
-
             this.nextAnimationTimer = this.speedAnimation;
         }
     }
 
-    draw(context, x, y)
+    draw(context, tileSize, x, y)
     {
-        context.drawImage(this.image,this.currentFrame * 64,0, 64, 64, x, y, 64, 64);
+        context.drawImage(this.image,this.currentFrame * tileSize,0, tileSize, tileSize, x, y, tileSize, tileSize);
     }
 }

@@ -115,7 +115,7 @@ class Level {
 
   drawEnemies(context) {
     for (let i = 0; i < this.enemies.length; i++) {
-      this.enemies[i].draw(context)
+      this.enemies[i].draw(context, this.tileSize)
     }
   }
 

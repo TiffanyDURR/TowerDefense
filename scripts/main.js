@@ -64,22 +64,12 @@ function mouseClick(e) {
   let position = mouseToGrid(mousePosition, level.tileSize);
 
    spawnTower(position);
-  //spawnEnemy(position);
 }
 
 function spawnTower(position)
 {
-      if (level.canSpawn(position)) {
+  if (level.canSpawn(position)) {
     level.slots[position.x][position.y] = new Tower();
     level.slots[position.x][position.y].load();
   }
-}
-
-function spawnEnemy(position)
-{
-    let enemy = new Enemy(level.mapData.paths[0]);
-
-    enemy.load();
-
-    level.enemies.push(enemy);
 }
