@@ -1,10 +1,10 @@
 class Enemy
 {
-    
     constructor(firstPath)
     {
         this.maxHealth = 10;
         this.speed = 2;
+        this.collider = null;
         this.pathIndex = 0;
         this.currentHealth = this.maxHealth;
         this.x = firstPath[0];
@@ -14,7 +14,8 @@ class Enemy
 
     load(tileSize)
     {
-        this.sprite.load("assets/dragon.png", tileSize);
+        this.sprite.load("assets/dragon.png", tileSize); // Changer pour un count frame plutôt
+        this.collider = new Collider(this.x, this.y, 1, 1);
     }
 
     update(deltaTime, paths)
@@ -55,13 +56,16 @@ class Enemy
             let destinationX = destinationPath[0]; 
             let destinationY = destinationPath[1]; 
 
-            let delta = 0.1;
+            let delta = 0.05        ;
 
             if (Math.abs(destinationX - this.x) <= delta)
             {
                 if (Math.abs(destinationY - this.y) <= delta)
                 {
-                    this.pathIndex++; // Corriger la position ici afin d'éviter un cumul de delta
+                    this.pathIndex++;
+
+                    this.x = destinationX;
+                    this.y = destinationY;
 
                     if (this.pathIndex == paths.length - 1)
                     {
@@ -69,12 +73,18 @@ class Enemy
                     }
                 }
             }
+
+            this.collider.x = this.x;
+            this.collider.y = this.y;
         }
     }
 
     draw(context, tileSize)
     {
-        this.sprite.draw(context,tileSize, (this.x * tileSize), (this.y * tileSize));
+        this.sprite.draw(context, tileSize, (this.x * tileSize), (this.y * tileSize));
+
+        if(debugMode)
+            this.collider.draw(context, (this.x * tileSize), (this.y * tileSize));
     }
 
     get isAlive()

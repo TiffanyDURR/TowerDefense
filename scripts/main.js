@@ -1,6 +1,7 @@
 const canvas = document.getElementById("game");
-const debug = document.getElementById("debug");
+const debugPanel = document.getElementById("debug");
 const context = canvas.getContext("2d");
+const debugMode = true;
 const cursor = new Image();
 
 let level;
@@ -47,7 +48,7 @@ function gameLoop(currentTime) {
 
   let deltaTime = (currentTime - lastUpdateTime) / 1000;
 
-  update(deltaTime);
+  update(deltaTime, mousePosition);
   draw();
 
   lastUpdateTime = currentTime;
@@ -55,8 +56,8 @@ function gameLoop(currentTime) {
   window.requestAnimationFrame(gameLoop);
 }
 
-function update(deltaTime) {
-  level.update(deltaTime);
+function update(deltaTime, mousePosition) {
+  level.update(deltaTime, mousePosition);
 }
 
 function draw() {
@@ -76,7 +77,7 @@ function drawCursor() {
 }
 
 function logDebug(message) {
-  debug.innerHTML = message;
+  debugPanel.innerHTML = message;
 }
 
 function mouseMove(e) {
@@ -92,7 +93,7 @@ function mouseClick(e) {
 function spawnTower(position)
 {
   if (level.canSpawn(position)) {
-    level.slots[position.x][position.y] = new Tower();
+    level.slots[position.x][position.y] = new Tower(position.x, position.y);
     level.slots[position.x][position.y].load();
   }
 }

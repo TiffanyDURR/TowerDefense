@@ -1,7 +1,8 @@
 class Level {
-  tileset = new Image()
-  obstacles = new Image()
-  enemies = []
+  tileset = new Image();
+  obstacles = new Image();
+  enemies = [];
+  bullets = [];
 
   constructor(mapData) {
     this.mapData = mapData
@@ -18,23 +19,51 @@ class Level {
     this.obstacles.src = 'assets/obstacles.png'
   }
 
-  update(deltaTime) {
+  update(deltaTime, mousePosition) {
     this.waveManager.update(deltaTime, this);
-    this.updateEnemies(deltaTime)
+    this.updateEnemies(deltaTime, mousePosition)
+    this.updateTowers(deltaTime);
+    this.updateBullets(deltaTime);
   }
 
-  updateEnemies(deltaTime) {
+  updateEnemies(deltaTime, mousePosition) {
     let toRemove = []
 
     for (let i = 0; i < this.enemies.length; i++) {
       this.enemies[i].update(deltaTime, this.mapData.paths)
 
       if (!this.enemies[i].isAlive) {
-        toRemove.push(this.enemies[i])
+        toRemove.push(this.enemies[i]);
       }
     }
 
     this.enemies = this.enemies.filter((x) => !toRemove.includes(x))
+  }
+
+  updateTowers(deltaTime)
+  {
+    for (let y = 0; y < this.slots[0].length; y++) {
+      for (let x = 0; x < this.slots.length; x++) {
+        if (this.slots[x][y] != null) {
+          this.slots[x][y].update(deltaTime, this);
+        }
+      }
+    }
+  }
+
+  updateBullets(deltaTime)
+  {
+    let toRemove = []
+
+    for (let i = 0; i < this.bullets.length; i++) {
+      this.bullets[i].update(deltaTime)
+
+      if (!this.bullets[i].isAlive) {
+        toRemove.push(this.bullets[i])
+      }
+    }
+
+    this.bullets = this.bullets.filter((x) => !toRemove.includes(x))
   }
 
   draw(context) {
@@ -43,6 +72,7 @@ class Level {
     this.drawGrid(context)
     this.drawEnemies(context)
     this.drawTowers(context)
+    this.drawBullets(context);
   }
 
   drawMap(context) {
@@ -116,6 +146,13 @@ class Level {
   drawEnemies(context) {
     for (let i = 0; i < this.enemies.length; i++) {
       this.enemies[i].draw(context, this.tileSize)
+    }
+  }
+
+  drawBullets(context)
+  {
+      for (let i = 0; i < this.bullets.length; i++) {
+      this.bullets[i].draw(context, this.tileSize)
     }
   }
 
