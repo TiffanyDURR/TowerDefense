@@ -13,7 +13,7 @@ class Bullet
 
     load()
     {
-        this.sprite.load("assets/bullet.png", 20);
+        this.sprite.load("assets/bullet.png", 1);
         this.collider = new Collider(this.x, this.y, 20 / 64, 20 / 64);
     }
 
@@ -21,16 +21,12 @@ class Bullet
     {
         this.sprite.update(deltaTime);
         
-        let x = (this.target.x - this.x);
-        let y = (this.target.y - this.y);
+        let direction = this.getDirection();
 
-        let distance = Math.sqrt(x * x + y * y);
+        this.x += direction.x * deltaTime;
+        this.y += direction.y * deltaTime;
 
-        this.x += (x * this.speed * deltaTime) / distance;
-        this.y += (y * this.speed * deltaTime) / distance;
-
-        this.collider.x = this.x;
-        this.collider.y = this.y;
+        this.collider.update(this.x, this.y);
 
         if (this.target.isAlive)
         {
@@ -46,17 +42,21 @@ class Bullet
             this.isAlive = false;
         }
     }
-
-    length(x, y)
+    
+    getDirection()
     {
-        return Math.sqrt(x * x + y * y);
+        let x = ((this.target.x + 0.5) - this.x);
+        let y = ((this.target.y + 0.5) - this.y);
+
+        let distance = Math.sqrt(x * x + y * y);
+
+        let direction = new Vector((x * this.speed) / distance,  (y * this.speed) / distance);
+
+        return direction;
     }
 
     draw(context, tileSize)
     {
         this.sprite.draw(context, 20, (this.x * tileSize), (this.y * tileSize));
-
-       // if(debugMode)
-       //     this.collider.draw(context, (this.x * tileSize), (this.y * tileSize));
     }
 }

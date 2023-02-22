@@ -1,7 +1,7 @@
 {
   "name": "Level Debug",
   "timeBetweenWaves": 5,
-  "timeBetweenSpawn": 1.5,
+  "timeBetweenSpawn": 0.5,
   "tileSize": 64,
   "background": [
     [1, 1, 4, 0, 3, 0, 0, 0, 2, 0, 7, 0, 0, 0, 8],

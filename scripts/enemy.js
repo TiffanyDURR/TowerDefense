@@ -14,7 +14,7 @@ class Enemy
 
     load(tileSize)
     {
-        this.sprite.load("assets/dragon.png", tileSize); // Changer pour un count frame plutôt
+        this.sprite.load("assets/dragon.png", 4);
         this.collider = new Collider(this.x, this.y, 1, 1);
     }
 
@@ -56,7 +56,7 @@ class Enemy
             let destinationX = destinationPath[0]; 
             let destinationY = destinationPath[1]; 
 
-            let delta = 0.05        ;
+            let delta = 0.05;
 
             if (Math.abs(destinationX - this.x) <= delta)
             {
@@ -74,8 +74,7 @@ class Enemy
                 }
             }
 
-            this.collider.x = this.x;
-            this.collider.y = this.y;
+            this.collider.update(this.x, this.y);
         }
     }
 

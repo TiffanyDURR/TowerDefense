@@ -37,7 +37,7 @@ class Level {
       }
     }
 
-    this.enemies = this.enemies.filter((x) => !toRemove.includes(x))
+    this.enemies = this.enemies.filter((x) => !toRemove.includes(x));
   }
 
   updateTowers(deltaTime)

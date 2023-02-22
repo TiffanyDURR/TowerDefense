@@ -4,15 +4,19 @@ class Sprite
     {
         this.image = new Image();
         this.currentFrame = 0;
-        this.maxFrames = 0;
+        this.maxFrames;
+        this.frameWidth;
+        this.frameHeight;
         this.speedAnimation = speedAnimation;
         this.nextAnimationTimer = this.speedAnimation;
     }
 
-    load(path, tileSize)
+    load(path, frameCount)
     {
         this.image.src = path;
-        this.maxFrames =  this.image.width / tileSize;
+        this.maxFrames = frameCount;
+        this.frameWidth =  this.image.width / frameCount;
+        this.frameHeight =  this.image.height;
     }
 
     update(deltaTime)
@@ -25,6 +29,11 @@ class Sprite
             this.currentFrame %= this.maxFrames;
             this.nextAnimationTimer = this.speedAnimation;
         }
+    }
+
+    get center()
+    {
+        return new Vector(this.frameWidth / 2, this.frameHeight / 2);
     }
 
     draw(context, tileSize, x, y)
