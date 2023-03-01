@@ -13,7 +13,7 @@ function drawLine(start, end) {
   context.stroke();
 }
 
-function mouseToGridPixel(mousePosition, tileSize) {
+function mouseToGridPixel(mousePosition, tileSize, camera) {
   let position = mouseToGrid(mousePosition, tileSize);
   return new Vector(position.x * tileSize, position.y * tileSize);
 }

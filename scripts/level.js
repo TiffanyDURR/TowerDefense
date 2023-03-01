@@ -1,12 +1,12 @@
 class Level {
-  tileset = new Image();
-  obstacles = new Image();
-  enemies = [];
-  bullets = [];
+  tileset = new Image()
+  obstacles = new Image()
+  enemies = []
+  bullets = []
 
   constructor(mapData) {
     this.mapData = mapData
-    this.waveManager = new WaveManager();
+    this.waveManager = new WaveManager()
     this.tileSize = mapData.tileSize
     this.slots = Array.from(
       Array(mapData.background[0].length),
@@ -20,10 +20,10 @@ class Level {
   }
 
   update(deltaTime, mousePosition) {
-    this.waveManager.update(deltaTime, this);
+    this.waveManager.update(deltaTime, this)
     this.updateEnemies(deltaTime, mousePosition)
-    this.updateTowers(deltaTime);
-    this.updateBullets(deltaTime);
+    this.updateTowers(deltaTime)
+    this.updateBullets(deltaTime)
   }
 
   updateEnemies(deltaTime, mousePosition) {
@@ -33,26 +33,24 @@ class Level {
       this.enemies[i].update(deltaTime, this.mapData.paths)
 
       if (!this.enemies[i].isAlive) {
-        toRemove.push(this.enemies[i]);
+        toRemove.push(this.enemies[i])
       }
     }
 
-    this.enemies = this.enemies.filter((x) => !toRemove.includes(x));
+    this.enemies = this.enemies.filter((x) => !toRemove.includes(x))
   }
 
-  updateTowers(deltaTime)
-  {
+  updateTowers(deltaTime) {
     for (let y = 0; y < this.slots[0].length; y++) {
       for (let x = 0; x < this.slots.length; x++) {
         if (this.slots[x][y] != null) {
-          this.slots[x][y].update(deltaTime, this);
+          this.slots[x][y].update(deltaTime, this)
         }
       }
     }
   }
 
-  updateBullets(deltaTime)
-  {
+  updateBullets(deltaTime) {
     let toRemove = []
 
     for (let i = 0; i < this.bullets.length; i++) {
@@ -72,7 +70,7 @@ class Level {
     this.drawGrid(context)
     this.drawEnemies(context)
     this.drawTowers(context)
-    this.drawBullets(context);
+    this.drawBullets(context)
   }
 
   drawMap(context) {
@@ -118,14 +116,14 @@ class Level {
     context.lineCap = 'round'
     context.lineWidth = 2
 
-    for (let y = 0; y < mapData.foreground.length; y++) {
+    for (let y = 0; y < mapData.background.length; y++) {
       let start = new Vector(0, y * this.tileSize)
       let end = new Vector(canvas.width, y * this.tileSize)
 
       drawLine(start, end)
     }
 
-    for (let x = 0; x < mapData.foreground[0].length; x++) {
+    for (let x = 0; x < mapData.background[0].length; x++) {
       let start = new Vector(x * this.tileSize, 0)
       let end = new Vector(x * this.tileSize, canvas.height)
 
@@ -149,9 +147,8 @@ class Level {
     }
   }
 
-  drawBullets(context)
-  {
-      for (let i = 0; i < this.bullets.length; i++) {
+  drawBullets(context) {
+    for (let i = 0; i < this.bullets.length; i++) {
       this.bullets[i].draw(context, this.tileSize)
     }
   }
