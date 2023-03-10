@@ -6,6 +6,7 @@ class Bullet {
     this.y = y;
     this.isAlive = true;
     this.collider = null;
+    this.damage = 2;
     this.sprite = new Sprite(1);
   }
 
@@ -27,7 +28,7 @@ class Bullet {
     if (this.target.isAlive) {
       if (this.collider.isColliding(this.target.collider)) {
         this.isAlive = false;
-        this.target.currentHealth = 0;
+        this.target.damage(this.damage);
       }
     } else {
       this.isAlive = false;
