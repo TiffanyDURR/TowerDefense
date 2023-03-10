@@ -65,8 +65,8 @@ class Level {
     this.drawMap(context);
     this.drawObstacles(context);
     this.drawGrid(context);
-    this.drawEnemies(context);
     this.drawTowers(context);
+    this.drawEnemies(context);
     this.drawBullets(context);
   }
 
