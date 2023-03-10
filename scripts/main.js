@@ -1,7 +1,7 @@
 const canvas = document.getElementById("game");
 const debugPanel = document.getElementById("debug");
 const context = canvas.getContext("2d");
-const debugMode = true;
+const debugMode = false;
 const cursor = new Image();
 
 let level;
