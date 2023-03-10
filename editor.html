@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="scripts/tools.js"></script>
+    <script defer src="scripts/collider.js"></script>
+    <script defer src="scripts/vector.js"></script>
+    <script defer src="scripts/camera.js"></script>
+    <script defer src="scripts/sprite.js"></script>
+    <script defer src="scripts/bullet.js"></script>
+    <script defer src="scripts/tower.js"></script>
+    <script defer src="scripts/enemy.js"></script>
+    <script defer src="scripts/wavemanager.js"></script>
+    <script defer src="scripts/level.js"></script>
+    <script defer src="scripts/editor.js"></script>
+    <title>Editor</title>
+  </head>
+  <body>
+    <canvas id="game" width="1000" height="750"> </canvas>
+    <img id="tileset" src="assets/tileset.png"><br>
+    <img id="obstacles" src="assets/obstacles.png"><br>
+    <button id="saveButton" onclick="saveClick()">Save As ...</button>
+    <button id="loadButton" onclick="loadClick()">Load ...</button>
+  </body>
+</html>
