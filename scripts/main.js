@@ -94,10 +94,7 @@ function mouseMove(e) {
   mousePosition = new Vector(e.offsetX, e.offsetY);
 
   if (isDragging) {
-    camera.moveTo(
-      dragPosition.x + (mouseDragPosition.x - mousePosition.x) * camera.zoom, // Permet d'ajuster le drag au zoom
-      dragPosition.y + (mouseDragPosition.y - mousePosition.y) * camera.zoom
-    );
+    camera.moveTo(dragPosition.x + (mouseDragPosition.x - mousePosition.x) * camera.zoom, dragPosition.y + (mouseDragPosition.y - mousePosition.y) * camera.zoom);
   }
 
   mousePosition = camera.screenToWorld(mousePosition.x, mousePosition.y);

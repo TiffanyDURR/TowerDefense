@@ -7,7 +7,6 @@ const cursor = new Image();
 let level;
 let camera;
 let mousePosition = new Vector(0, 0);
-let lastUpdateTime = 0;
 let isDragging = false;
 let dragPosition;
 let mouseDragPosition;
@@ -43,8 +42,6 @@ async function initialize() {
 
 function gameLoop(currentTime) {
   draw();
-
-  lastUpdateTime = currentTime;
 
   window.requestAnimationFrame(gameLoop);
 }
