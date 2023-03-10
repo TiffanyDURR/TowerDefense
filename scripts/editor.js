@@ -1,30 +1,26 @@
 const canvas = document.getElementById("game");
-const debugPanel = document.getElementById("debug");
+const tileSet = document.getElementById("tileset");
+const obstacleSet = document.getElementById("obstacles");
 const context = canvas.getContext("2d");
-const debugMode = true;
 const cursor = new Image();
 
 let level;
 let camera;
 let mousePosition = new Vector(0, 0);
 let lastUpdateTime = 0;
-let wasPaused = false;
 let isDragging = false;
 let dragPosition;
 let mouseDragPosition;
+let currentTile = 0;
+let currentObstacle = 0;
 
 cursor.src = "assets/cursor.png";
 canvas.addEventListener("mousemove", mouseMove);
 canvas.addEventListener("mousedown", mouseDown);
 canvas.addEventListener("mouseup", mouseUp);
 canvas.addEventListener("contextmenu", rightMouseClick);
-document.addEventListener("visibilitychange", visibilityChanged);
-
-function visibilityChanged() {
-  if (!document.hidden) {
-    wasPaused = true;
-  }
-}
+tileSet.addEventListener("click", tileSetClick);
+obstacleSet.addEventListener("click", obstaclesClick);
 
 initialize();
 
@@ -46,24 +42,11 @@ async function initialize() {
 }
 
 function gameLoop(currentTime) {
-  if (wasPaused) {
-    lastUpdateTime = currentTime;
-
-    wasPaused = false;
-  }
-
-  let deltaTime = (currentTime - lastUpdateTime) / 1000;
-
-  update(deltaTime, mousePosition);
   draw();
 
   lastUpdateTime = currentTime;
 
   window.requestAnimationFrame(gameLoop);
-}
-
-function update(deltaTime, mousePosition) {
-  level.update(deltaTime, mousePosition);
 }
 
 function draw() {
@@ -81,26 +64,25 @@ function draw() {
 function drawCursor() {
   let gridPosition = mouseToGridPixel(mousePosition, level.tileSize, camera);
 
-  logDebug(mouseToGrid(mousePosition, level.tileSize));
-
   context.drawImage(cursor, gridPosition.x, gridPosition.y);
 }
 
-function logDebug(message) {
-  debugPanel.innerHTML = message;
+function changeTile(position, tileID) {
+  level.mapData.background[position.y][position.x] = tileID;
+}
+
+function changeObstacle(position, obstacleID) {
+  level.mapData.foreground[position.y][position.x] = obstacleID;
 }
 
 function mouseMove(e) {
   mousePosition = new Vector(e.offsetX, e.offsetY);
 
   if (isDragging) {
-    camera.moveTo(
-      dragPosition.x + (mouseDragPosition.x - mousePosition.x) * camera.zoom, // Permet d'ajuster le drag au zoom
-      dragPosition.y + (mouseDragPosition.y - mousePosition.y) * camera.zoom
-    );
+    camera.moveTo(dragPosition.x + (mouseDragPosition.x - mousePosition.x) * camera.zoom, dragPosition.y + (mouseDragPosition.y - mousePosition.y) * camera.zoom);
   }
 
-  mousePosition = camera.screenToWorld(mousePosition.x, mousePosition.y);
+  if (camera != null) mousePosition = camera.screenToWorld(mousePosition.x, mousePosition.y);
 }
 
 function mouseDown(e) {
@@ -108,7 +90,12 @@ function mouseDown(e) {
     // Click gauche
     let position = mouseToGrid(mousePosition, level.tileSize);
 
-    spawnTower(position);
+    changeTile(position, currentTile);
+  } else if (e.button == 1) {
+    // Click molette
+    let position = mouseToGrid(mousePosition, level.tileSize);
+
+    changeObstacle(position, currentObstacle);
   } else if (e.button == 2) {
     // Click droit
     isDragging = true;
@@ -129,9 +116,47 @@ function rightMouseClick(e) {
   e.preventDefault(); // On empêche juste le menu de s'ouvrir pour que mousedown detect le droit aussi
 }
 
-function spawnTower(position) {
-  if (level.canSpawn(position)) {
-    level.slots[position.x][position.y] = new Tower(position.x, position.y);
-    level.slots[position.x][position.y].load();
-  }
+function tileSetClick(e) {
+  let position = new Vector(e.offsetX, e.offsetY);
+  let gridPos = mouseToGrid(position, 64);
+
+  currentTile = gridPos.x;
+}
+
+function obstaclesClick(e) {
+  let position = new Vector(e.offsetX, e.offsetY);
+  let gridPos = mouseToGrid(position, 64);
+
+  currentObstacle = gridPos.x;
+}
+
+function saveClick() {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(
+    new Blob([JSON.stringify(level.mapData, null, 2)], {
+      type: "text/plain",
+    })
+  );
+  a.setAttribute("download", "map.json");
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function loadClick() {
+  var input = document.createElement("input");
+  input.type = "file";
+  input.onchange = (e) => {
+    var file = e.target.files[0];
+
+    var reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+
+    reader.onload = (readerEvent) => {
+      var content = readerEvent.target.result;
+
+      level.mapData = JSON.parse(content);
+    };
+  };
+  input.click();
 }
