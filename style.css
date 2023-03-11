@@ -1,14 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
+
 html {
   background-color: rgb(44, 44, 44);
+  font-family: "Open Sans", sans-serif;
+  background: url(assets/back.jpg);
+  background-size: cover;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  list-style-type: none;
+  scroll-behavior: smooth;
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+h1 {
+  font-family: "Oleo Script Swash Caps", cursive;
+  font-weight: 400;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  color: #5d6517;
 }
 
 canvas {
   background: rgb(103, 103, 103);
-  outline: black 3px solid;
+  outline: black 0px solid;
   display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 16px;
+  margin-top: 60px;
 }
 
 #debug {
-  color: aliceblue;
+  color: #5d6517;
   font-size: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 18px;
 }
