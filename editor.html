@@ -19,10 +19,14 @@
     <title>Editor</title>
   </head>
   <body>
+    <h1>Tower Defense</h1>
+    <a href="index.html">Retour au jeu</a>
     <canvas id="game" width="1000" height="750"> </canvas>
-    <img id="tileset" src="assets/tileset.png"><br>
-    <img id="obstacles" src="assets/obstacles.png"><br>
-    <button id="saveButton" onclick="saveClick()">Save As ...</button>
-    <button id="loadButton" onclick="loadClick()">Load ...</button>
+    <div class="img-container"><img id="tileset" src="assets/tileset.png" /></div>
+    <div class="img-container"><img id="obstacles" src="assets/obstacles.png" /></div>
+    <div class="buttons">
+      <button id="saveButton" onclick="saveClick()">Save As ...</button>
+      <button id="loadButton" onclick="loadClick()">Load ...</button>
+    </div>
   </body>
 </html>
